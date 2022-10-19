@@ -1,0 +1,495 @@
+:root{
+    --main-color:  #0080ff;
+    --background-color: #0080ffcc;
+}
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #ddd;     
+    border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ccc; 
+} 
+/* navbar css starts here */
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: var(--main-color);
+    width: 100%;
+    min-height: 50px;
+    padding: 2px 30px;
+}
+nav .icons{
+    font-size: 26px;
+    width: 40px;
+    padding: 5px 8px;
+    margin: 0 2px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+}
+nav .icons:hover{
+    background-color: rgb(255, 255, 255,0.2);
+}
+
+nav .searchbar input, #close-icon{
+    display: none;
+}
+/* nav .searchbar:active{
+    width: 100%;
+    padding: 8px 0px;
+    background-color: white;
+}
+nav .searchbar #search-icon:active{
+    margin: auto 2px;
+    font-size: 20px;
+    width: auto;
+    color: black;
+}
+nav .searchbar input{
+    font-size: 16px;
+    outline: none;
+    border: none;
+    display: none;
+}
+nav .searchbar #close-icon{
+    display: none;
+}
+nav .searchbar input .show{
+    display: inline-block;
+}
+nav .searchbar #close-icon .show{
+    display: inline-block;
+} */
+/* navbar css ends here */
+
+.wrapper{
+    display: flex;
+    flex-direction:row;
+    overflow: hidden !important;
+    height: calc(100vh - 50px);
+}
+/* sidebar section css starts here */
+.sidebar{
+    width: 300px;
+    background-color: #eee;
+    padding:15px;
+    overflow-y: auto;
+}
+.sidebar .toggle{
+    display: none;
+}
+.sidebar .sidebar-title{
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    cursor: pointer;
+    color: var(--main-color);
+}
+.sidebar .sidebar-title i{
+    font-size: 24px;
+    padding: 0 10px;
+}
+.sidebar ul li{
+    list-style: none;
+    font-size: 18px;
+    border-radius: 8px;
+}
+.sidebar ul li a{
+    display: block;
+    color: black !important;
+}
+.sidebar ul li.active a{
+    color: var(--main-color) !important;
+}
+.sidebar ul li i{
+    padding: 10px 10px;
+    border-radius: 8px;
+}
+.sidebar .bottom{
+    padding-top: 20px;
+}
+.sidebar .bottom ul li i:hover{
+    background-color: #ccc;
+}
+.sidebar ul li.active{
+    background-color: #ddd;
+}
+.sidebar ul li:hover{
+    background-color: #ddd;
+    cursor: pointer;
+}
+.sidebar ul .toggle{
+    display: none;
+    transition: 3s;
+}
+/* sidebar section css ends here */
+
+/* content section css starts here */
+.content{
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.content .head{
+    position: sticky;
+    top: 0;
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px !important;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    margin-bottom: 10px;
+    color: var(--main-color);
+}
+.content .head .heading span{
+    font-size: 22px;
+    font-weight: 700;
+}
+.content .head .sort:hover{
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+.content .add-task{
+    width: 100%;
+    margin-bottom: 140px;
+}
+.content .add-task .add-task-head{
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--main-color);
+}
+.content .add-task-head:hover{
+    background-color: #0080ff10;
+}
+.content .add-task .add-task-body{
+    width: 100%;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    display: none;
+}
+.content .add-task .show{
+    display: inline-block !important;
+}
+.content .add-task-body input,.add-task-body textarea, #editModal input, #editModal textarea{
+    width: 98%;
+    padding: 4px;
+    outline: none;
+    resize: none;
+    border: none;
+    margin: 0 0 0 5px;
+}
+.content .add-task-body textarea{
+    resize: none;
+    padding-left: 10px;
+}
+.editModal textarea{
+    resize: none;
+}
+.content .add-task-body input, #editModal input{
+    font-weight: 500;
+    margin-top: 2px;
+}
+.content .add-task-body input{
+    padding-left: 10px;
+}
+.content .add-task-body .buttons, #editModal .buttons, #deleteModal .buttons, .userInfoModal .buttons{
+    margin: 5px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.content .add-task-body .buttons{
+    justify-content: space-between;
+}
+.content .add-task-body .buttons .left-buttons button{
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+    width: auto;
+    background-color: #fff !important;
+    padding: 0px 10px;
+}
+.content .add-task-body .buttons button, #editModal .buttons button, #deleteModal .buttons button, .userInfoModal .buttons button{
+    width: 80px;
+    height: 30px;
+    padding: 3px;
+    margin: 0 2px;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.content .add-task-body .buttons #one, #editModal .buttons #one, #deleteModal .buttons #one, .userInfoModal .buttons #one{
+    background-color: #ccc;
+}
+.content .add-task-body .buttons #one:hover, #editModal .buttons #one:hover, #deleteModal .buttons #one:hover, .userInfoModal .buttons #one:hover{
+    background-color: #ddd;
+}
+.content .add-task-body .buttons #two, #editModal .buttons #two, #deleteModal .buttons #two, .userInfoModal .buttons #two{
+    background-color: var(--main-color);
+    color: white;
+}
+.content .add-task-body .buttons #two:hover, #editModal .buttons #two:hover, #deleteModal .buttons #two:hover, .userInfoModal .buttons #two:hover{
+    background-color: var(--background-color);
+    color: white;
+}
+.content .tasks{
+    width: 85%;
+}
+.content .tasks .single-task{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+    cursor: pointer;
+    min-height: 80px;
+}
+.content .tasks .single-task .todo{
+    display: flex;
+    /* flex-direction: column; */
+}
+.content .tasks .single-task .todo .text{
+    padding: 0 0 10px 5px;
+}
+.content .tasks .single-task .todo span{
+    font-weight: 500;
+    font-size: 18px;
+    display: inline-block;
+}
+.content .tasks .single-task .todo i{
+    padding: 5px;
+    font-size: 20px;
+}
+.content .tasks .single-task .todo .fa-check-circle-o{
+    color:#aaa;
+}
+.content .tasks .single-task .todo .done {
+    color:#aaa;
+    text-decoration: line-through;
+}
+.content .tasks .single-task .icons i{
+    width: 30px;
+    text-align: center;
+    margin: 0 2px;
+    padding: 5px;
+    font-size: 20px;
+    display: flex;
+}
+.content .tasks .single-task .icons i:hover{
+    background-color: #ddd;
+}
+/* modal */
+.modal{
+    overflow: auto;
+    display: none; 
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    -webkit-animation-name: fadeIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+}
+.modal-content{
+    position: fixed;
+    top: 35%;
+    left: 20%;
+    width: 60%;
+    max-height: 60%;
+    overflow-y: scroll;
+    background-color: #fefefe;
+    border-radius: 15px;
+}
+.modal span.modalClose{
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.modal .modalClose:hover,
+.modal .modalClose:focus {
+  color: var(--main-color);
+  cursor: pointer;
+}
+.modal .modal-header{
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding: 5px 25px;
+    color: black;
+    border-bottom: 1px solid #ccc;
+}
+.modal .modal-body{
+    padding: 2px 18px;
+}
+#deleteModal .modal-body p{
+    padding:25px;
+} 
+.modal .modal-footer{
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    padding: 2px 16px;
+    color: white;
+}
+.userInfoModal .modal-content{
+    position: fixed;
+    top: 20%;
+    left: 22%;
+    max-height: 70%;
+    overflow-y: scroll;
+}
+.userInfoModal p{
+    color: gray;
+    font-size: 14px;
+}
+.userInfoModal .modal-body button{
+    padding: 5px 8px;
+    margin: 4px 0 10px 0;
+    border: 1px solid var(--main-color);
+    border-radius: 4px;
+    color: var(--main-color);
+    background-color: #eee;
+    cursor: pointer;
+    font-weight: 500;
+}
+.userInfoModal .modal-body button:hover{
+    background-color: #ddd;
+}
+.userInfoModal hr{
+    margin: 5px 0;
+    height: 1px;
+    background-color: #ccc;
+    border: none;
+}
+.userInfoModal input{
+    display: block;
+    width: 60%;
+    margin: 4px 0;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.userInfoModal input:focus{
+    outline: none;
+    border: 1px solid #aaa;
+}
+#deleteAccountModal .modal-body{
+    padding: 60px 18px;
+}
+
+ /* pop up box css */
+.pop-up-container{
+    position: relative;
+}
+.pop-up-box{
+    background-color: #aaa;
+    width: 200px;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    color: black;
+    display: none;
+}
+.pop-up-box i.fa-caret-up{
+    font-size: 35px;
+    position: absolute;
+    top: -20px;
+    left: 40px;
+    color: #aaa;
+    /* color: blue; */
+
+}
+
+
+
+/* content section css ends here */
+
+@media screen and (max-width: 750px){
+    .sidebar{
+        display: none;
+    }
+    .sidebar .toggle{
+        display: inline-block; 
+    }
+    .modal-content{
+        position: fixed;
+        top: 35%;
+        left: 15%;
+        width: 70%;
+    }
+    .userInfoModal .modal-content{
+        position: fixed;
+        top: 15%;
+        left: 15%;
+    }
+}
+@media screen and (max-width: 600px){
+    nav .icons{
+        font-size: 22px;
+        width: 35px;
+    }
+    .modal-content{
+        position: fixed;
+        top: 35%;
+        left: 10%;
+        width: 80%;
+    }
+    .userInfoModal .modal-content{
+        position: fixed;
+        top: 15%;
+        left: 10%;
+    }
+}
+@media screen and (max-width: 500px){
+    .content .add-task-body .buttons{
+        justify-content: space-around;
+    }
+    .content .add-task-body .buttons .left-buttons{
+        margin-bottom: 7px;
+    }
+}
+@media screen and (max-width: 320px){
+    nav .icons{
+        font-size: 18px;
+        width: 28px;
+    }
+    .sidebar{
+        min-width: 180px;
+    }
+    .content{
+        min-width: 280px;
+    }
+    .modal-content{
+        min-width: 220px;
+    }
+}
