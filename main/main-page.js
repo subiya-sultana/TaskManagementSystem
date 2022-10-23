@@ -1,9 +1,9 @@
 console.log('this file works');
 
 $(document).ready(function(){
+    // redirecting to home page when clicked on home icon
     $('nav .fa-home').click(function(){
-        // redirecting to home page when clicked on home icon
-        window.location.href = "http://localhost/CLGproject/main/main-page.php";
+        window.location.href = "http://localhost/CLGproject/homepage.php";
     });
     // showing sidebar on click of menu icon
     $('nav .fa-bars').click(function(){
@@ -40,7 +40,7 @@ $(document).ready(function(){
     // completed task js
     $('.single-task .todo .checkbox').click(function(){
         $(this).next('div').toggleClass('done');
-        $(this).children('i').toggleClass('fa-circle-thin fa-check-circle-o');
+        $(this).children('i').toggleClass('fa-circle-o fa-check-circle-o');
     });
     // deleting tasks
     $('.fa-trash').click(function(){
@@ -55,18 +55,16 @@ $(document).ready(function(){
         $('#editId').val(eId);
         console.log(eId);
         
-        $.get( "function.php", { id: eId, act: 'getEdit' } ).done(function( data ){
+        $.get( "function.php", { id: eId, getEditData: 'getEdit' } ).done(function( data ){
             console.log(data);
             var res = JSON.parse(data);
         
             var gid = res[0]['Sno'];
             var gtext = res[0]['task-name'];
             var gdes = res[0]['task-desc'];
-            // console.log(res[0]['task-desc']);
             $('#editId').val(gid);
             $('#editName').val(gtext);
             $('#editDesc').val(gdes);
-            // console.log(gdes);
         });
         $('#editModal').css('display', 'block');
         
@@ -93,21 +91,4 @@ $(document).ready(function(){
         $('#deleteAccountModal').css('display', 'none');
         $('#userInfoModal').css('display', 'block');
     });
-
-    // pop up box which will closed when clicked outside of box  
-    $('.pop-up-button').click(function(){
-        $('.pop-up-box').css('display', 'none');
-        $(this).siblings('.pop-up-box').css('display', 'block'); 
-    });
-    $(document).mouseup(function(e) {
-        var element = $(".pop-up-box");
-        // if the target element is not popup box then hide popup box
-        if (!element.is(e.target) && element.has(e.target).length === 0) {
-            element.hide();
-        }
-      });
-
-
-
-    
 });

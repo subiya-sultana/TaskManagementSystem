@@ -5,7 +5,6 @@
     }
     // connecting to database
     require_once '../config.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,14 +29,45 @@
                 <span>Today</span>
                 <small></small>
             </div>
-            <div class="sort">
-                <i class="fa fa-solid fa-sort-amount-desc"></i>
-                <small>Sort By</small>
-            </div>
+            <form method="post">
+                <select name="sort-by" id="sort-box">
+                    <option hidden selected value="">Sort By</option>
+                    <option value="Priority">Priority </option>
+                    <option value="old-task-first">(oldest) Date added </option>
+                    <option value="new-task-first">(newest) Date added &nbsp;&nbsp; </option>
+                    <option value="A-Z">(A-Z) Alphabetically</option>
+                    <option value="Z-A">(Z-A) Alphabetically</option>
+                </select>
+                <span class="buttons">
+                    <button class="two" name="sort-submit">Sort</button>
+                    <button class="one" name="sort-reset">Reset</button>
+                </span>
+            </form>
         </div>
         <div class="tasks">
             <?php
-                $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ";
+                if(isset($_POST['sort-submit'])){
+                    $sortBy = $_POST['sort-by'];
+                    if($sortBy == "old-task-first"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' AND DATE(`timestamp`) = DATE(now()) ORDER BY `timestamp` ASC";
+                    }
+                    if($sortBy == "new-task-first"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' AND DATE(`timestamp`) = DATE(now()) ORDER BY `timestamp` DESC";
+                    }
+                    if($sortBy == "A-Z"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' AND DATE(`timestamp`) = DATE(now()) ORDER BY `task-name` ASC";
+                    }
+                    if($sortBy == "Z-A"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' AND DATE(`timestamp`) = DATE(now()) ORDER BY `task-name` DESC";
+                    }
+                    if($sortBy == ""){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' AND DATE(`timestamp`) = DATE(now())";
+                    }
+                }
+                else{
+                    // $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' AND`timestamp` > CURDATE()";
+                    $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' AND DATE(`timestamp`) = DATE(now())";
+                }
                 $result1 = mysqli_query($conn, $sql1) or die('query unsucessful');
                 if(mysqli_num_rows($result1) > 0){    
                     while($row = mysqli_fetch_assoc($result1)){
@@ -76,17 +106,25 @@
                         <textarea name="task-desc" id="" cols="30" rows="3" placeholder="Task Description"></textarea>
                         <div class="buttons">
                             <div class="left-buttons">
-                                <button type="reset" id="one" name="cancelbtn" ><i class=" fa fa-solid fa-calendar-o"></i> Today</button>
+                                <button type="reset" id="one" name="cancelbtn" ><i class=" fa fa-solid fa-calendar-o"></i><input type='date' id='hasta' value='<?php echo date('Y-m-d');?>'></button>
                                 <button type="reset" id="one" name="cancelbtn">Priority</button>
                             </div>
                             <div class="right-buttons">
-                                <button type="reset" id="one" name="cancelbtn" >cancel</button>
-                                <button class="addBtn" id="two" name="add-task" >Add Task</button>
+                                <button type="reset" class="one" id="one" name="cancelbtn">Cancel</button>
+                                <button class="addBtn two" name="add-task" >Add Task</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+            <?php 
+                if(mysqli_num_rows($result1) == 0){
+                    echo '<h1 class="tittle">No Tasks To Show! Add New Tasks here.<br> Check your past tasks in Overdue section.</h1>
+                    <div class="img-container">
+                        <img src="../images/Add-tasks.GIF" alt="" class="add-task-image">
+                    </div>';
+                }
+            ?>
             <!-- Delete task Modal -->
             <div id="deleteModal" class="modal">
                 <div class="modal-content">
@@ -101,8 +139,8 @@
                         </div>
                         <div class="modal-footer">
                             <div class="buttons">
-                                <button name="reset" class="modalClose" type="button" id="one">cancel</button>
-                                <button name="del-task" type="submit" id="two"> Yes! </button>
+                                <button name="reset" class="modalClose one" type="button">cancel</button>
+                                <button name="del-task" type="submit" class="two"> Yes! </button>
                             </div>
                         </div>
                     </form>
@@ -124,23 +162,15 @@
                         </div>
                         <div class="modal-footer">
                             <div class="buttons">
-                                <button name="reset" id="one" class="modalClose" type="button">cancel</button>
-                                <button name="edit-task" id="two">Edit Task</button>
+                                <button name="reset" class="modalClose one" type="button">cancel</button>
+                                <button name="edit-task" class="two">Edit Task</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-<?php 
-if ( isset($_GET['success']) && $_GET['success'] == 1 )
-{
-     echo '<p style="color:red">Success</p>';
-}
-?>
     </section>
-    <!-- js file -->
-    <!-- <script src="main-page.js"></script> -->
 </body>
 </html>
 <?php 

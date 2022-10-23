@@ -1,7 +1,6 @@
 <?php 
+    // connecting to database
     require_once 'config.php'; 
-    $email = $username = $password = $confirm_password = "";
-    $email_err = $username_err = $password_err = $confirm_password_err = "";
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +15,7 @@
     <!-- font aewsome cdn -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- css file -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="registerAndLogin.css">
     <!--  bootstrap cdn-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- jquery cdn -->
@@ -49,13 +48,17 @@
                 <p>I already have an account? <a href="login.php" >Login Here!</a> </p>
                 <div class="error">
                     <?php 
+                        $email = $username = $password = $confirm_password = "";
+                        $email_err = $username_err = $password_err = $confirm_password_err = "";
                         if (isset($_POST['submit'])){ 
                             // checking for email
                             if(empty(trim($_POST['email']))){
+                                // if email is empty then show this error
                                 $email_err = 'email cannot be blank';
                                 echo $email_err.'<br>';
                             }
                             else{
+                                // if email is not empty then run this code
                                 $sql = "SELECT id FROM users WHERE email = ? "; 
                                 $stmt = mysqli_prepare($conn, $sql);
                                 if($stmt){
@@ -64,41 +67,51 @@
                                     $param_email = trim($_POST['email']);
                                     if(mysqli_stmt_execute($stmt)){
                                         mysqli_stmt_store_result($stmt);
+                                        // check if email is already taken 
                                         if(mysqli_stmt_num_rows($stmt) == 1){
+                                            // if email is taken then show this error
                                             $email_err = "This email is already taken";
                                             echo $email_err.'<br>';
                                         }
                                         else{
+                                            // if email is not taken then post email
                                             $email = trim($_POST['email']);
                                         }
                                     }
-                                }else{
+                                }
+                                else{
                                     echo "<br>Something went wrong!!";
                                 }
                                 mysqli_stmt_close($stmt);
                             }
                             // checking for username
                             if(empty(trim($_POST['username']))){
+                                // if username is empty then show this error
                                 $username_err = 'username cannot be blank';
                                 echo $username_err.'<br>';
                             }
                             else{
+                                // post username
                                 $username = trim($_POST['username']);
                             }
                             // checking for password
                             if(empty(trim($_POST['password']))){
+                                // if password is empty then show this error
                                 $password_err = 'Password cannot be blank';
                                 echo $password_err.'<br>';
                             }
                             elseif(strlen(trim($_POST['password'])) < 5){
+                                // if password is less then 5 characters
                                 $password_err = 'Password cannot be less than 5 characters';
                                 echo $password_err.'<br>';
                             }
                             else{
+                                //post password
                                 $password = trim($_POST['password']);
                             }
                             // checking for confirm password
                             if(trim($_POST['password']) != trim($_POST['confirm_password'])){
+                                // if password and conifirm password are not same show this error
                                 $confirm_password_err = 'Passwords should match! ';
                                 echo $confirm_password_err.'<br>';
                             }
@@ -112,6 +125,7 @@
                                     $param_username = $username;
                                     $param_password = password_hash($password, PASSWORD_DEFAULT);
                                 }
+                                // if registered successfully send user to login page
                                 if (mysqli_stmt_execute($stmt)){
                                     header("location: login.php");
                                 }

@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', 'sans-serif';
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
@@ -141,6 +141,7 @@ nav .searchbar #close-icon .show{
 .content{
     width: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -163,15 +164,36 @@ nav .searchbar #close-icon .show{
     font-size: 22px;
     font-weight: 700;
 }
-.content .head .sort:hover{
-    background-color: #eee;
-    border-radius: 5px;
+.content select{
     padding: 5px;
+    border: 1px solid var(--main-color);
+    width: 120px;
+    height: 35px;
     cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    text-align: left;
+}
+.content select:hover, .content .head select:active{
+    background-color: #eee;
+}
+.content select option{
+    color: #999999;
+    font-weight: 500;
+}
+.content select,select option{
+    color: var(--main-color);
+}
+.content .head form .buttons button{
+    width: 40px;
+    height: 33px;
+    margin: 0;
+    padding: 0 3px;
+    font-weight: 500;
 }
 .content .add-task{
     width: 100%;
-    margin-bottom: 140px;
+    margin-bottom: 40px;
 }
 .content .add-task .add-task-head{
     width: 100%;
@@ -223,14 +245,59 @@ nav .searchbar #close-icon .show{
 .content .add-task-body .buttons{
     justify-content: space-between;
 }
-.content .add-task-body .buttons .left-buttons button{
-    color: var(--main-color);
-    border: 1px solid var(--main-color);
+.content .add-task-body .buttons .left-buttons{
+    display: flex;
+    align-items: center;
+    margin: 0 2px 7px 2px;
+}
+.content .add-task-body .buttons .left-buttons input{
+    height: 35px;
     width: auto;
+    border: 1px solid var(--main-color);
+    padding: 5px;
+    color: var(--main-color);
     background-color: #fff !important;
     padding: 0px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    font-weight: 400;
+    margin: 2px;
 }
-.content .add-task-body .buttons button, #editModal .buttons button, #deleteModal .buttons button, .userInfoModal .buttons button{
+.left-buttons input::-webkit-calendar-picker-indicator {
+    color: transparent;
+    background: none;
+    z-index: 1;
+    cursor: pointer;
+}
+.left-buttons input:before {
+    color: var(--main-color);
+    display: block;
+    font-family: 'FontAwesome';
+    width: 15px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 6px;
+    content: '\f073';
+}
+.content select#priority{
+    width: 100px;
+    margin: 0 2px;
+}
+.content select#priority option#first{
+    color: green;
+}
+.content select#priority option#second{
+    color: chartreuse;
+}
+.content select#priority option#third{
+    color:  gold;
+}
+.content select#priority option#fourth{
+    color: #aaa;
+}
+.buttons button{
     width: 80px;
     height: 30px;
     padding: 3px;
@@ -240,17 +307,18 @@ nav .searchbar #close-icon .show{
     border-radius: 5px;
     cursor: pointer;
 }
-.content .add-task-body .buttons #one, #editModal .buttons #one, #deleteModal .buttons #one, .userInfoModal .buttons #one{
+/* .content .add-task-body .buttons #one, #editModal .buttons #one, #deleteModal .buttons #one, .userInfoModal .buttons #one{ */
+.buttons .one{
     background-color: #ccc;
 }
-.content .add-task-body .buttons #one:hover, #editModal .buttons #one:hover, #deleteModal .buttons #one:hover, .userInfoModal .buttons #one:hover{
+.buttons .one:hover{
     background-color: #ddd;
 }
-.content .add-task-body .buttons #two, #editModal .buttons #two, #deleteModal .buttons #two, .userInfoModal .buttons #two{
+.buttons .two{
     background-color: var(--main-color);
     color: white;
 }
-.content .add-task-body .buttons #two:hover, #editModal .buttons #two:hover, #deleteModal .buttons #two:hover, .userInfoModal .buttons #two:hover{
+.buttons .two:hover{
     background-color: var(--background-color);
     color: white;
 }
@@ -277,16 +345,40 @@ nav .searchbar #close-icon .show{
 .content .tasks .single-task .todo span{
     font-weight: 500;
     font-size: 18px;
-    display: inline-block;
+}
+.content .tasks .single-task .todo .checkbox{
+    padding: 5px;
+    color: gray;
 }
 .content .tasks .single-task .todo i{
-    padding: 5px;
-    font-size: 20px;
+    font-size: 16px;
 }
-.content .tasks .single-task .todo .fa-check-circle-o{
-    color:#aaa;
+.content .tasks .single-task .todo .checkbox i{
+    font-size: 22px;
+    font-weight: 100;
+    width: 18px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: #ddd;
 }
-.content .tasks .single-task .todo .done {
+.content .tasks .single-task .todo .checkbox i#first{
+    color: darkgreen;
+    background-color: rgb(0, 128, 0, 0.5);
+}
+.content .tasks .single-task .todo .checkbox i#second{
+    color:  chartreuse;
+    background-color: rgb(127, 255, 0, 0.4);
+}
+.content .tasks .single-task .todo .checkbox i#third{
+    color: gold;
+    background-color: rgb(255, 255, 0, 0.3);
+}
+.content .tasks .single-task .todo .checkbox i#fourth{
+    color: gray;
+    background-color: rgb(128, 128, 128, 0.2);
+}
+.content .tasks .single-task .todo .checkbox
+.content .tasks .single-task .todo .done{
     color:#aaa;
     text-decoration: line-through;
 }
@@ -404,36 +496,31 @@ nav .searchbar #close-icon .show{
 #deleteAccountModal .modal-body{
     padding: 60px 18px;
 }
-
- /* pop up box css */
-.pop-up-container{
+.img-container {
+    overflow: hidden;
+    width: 500px;
+    height: 400px;
+    margin: auto;
     position: relative;
+    z-index: -10;
 }
-.pop-up-box{
-    background-color: #aaa;
-    width: 200px;
-    border-radius: 5px;
-    padding: 10px;
+.add-task-image{
+    width: 100%;
+    height: auto;
+    margin: auto;
     position: absolute;
-    top: 35px;
-    left: 0;
-    color: black;
-    display: none;
+    top: -70px;
+    opacity: 0.5;
 }
-.pop-up-box i.fa-caret-up{
-    font-size: 35px;
-    position: absolute;
-    top: -20px;
-    left: 40px;
-    color: #aaa;
-    /* color: blue; */
-
+.tittle{
+    text-align: center;
+    color: rgb(255, 0, 0,0.5);
+    font-weight: 500;
 }
 
 
 
 /* content section css ends here */
-
 @media screen and (max-width: 750px){
     .sidebar{
         display: none;
@@ -469,14 +556,41 @@ nav .searchbar #close-icon .show{
         top: 15%;
         left: 10%;
     }
-}
-@media screen and (max-width: 500px){
     .content .add-task-body .buttons{
         justify-content: space-around;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 500px){
+
+    .img-container {
+        width: 300px;
+        height: 300px;
+    }
+    .tittle{
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .content .head{
+        flex-direction: column;
+        height: auto !important;
+        padding: 3px;
+    }
+    .content .head .heading {
+        text-decoration: underline;
+        margin-bottom: 5px;
     }
     .content .add-task-body .buttons .left-buttons{
-        margin-bottom: 7px;
+        flex-direction: column;
+        justify-content: center !important;
+        align-items: center !important;
     }
+    .content select#priority{
+        width: 100%;
+        align-items: center;
+        margin: 7px auto 0 auto;
+    }
+
 }
 @media screen and (max-width: 320px){
     nav .icons{

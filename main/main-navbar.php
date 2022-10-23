@@ -31,7 +31,7 @@
                 <div class="modal-content">
                     <form action="function.php" method="post">
                         <div class="modal-header">
-                            <label for="one"> <span class="modalClose">&times;</span></label>
+                            <label for="cancel-updateAcc" > <span class="modalClose">&times;</span></label>
                             <h2>Account</h2>
                         </div>
                         <div class="modal-body">
@@ -79,8 +79,8 @@
                         <div class="modal-footer">
                             <hr>
                             <div class="buttons">
-                                <button name="cancel-updateAcc" id="one"> cancel </button>
-                                <button name="confirm-updateAcc" type="submit" id="two"> Update! </button>
+                                <button name="cancel-updateAcc" class="one" id="cancel-updateAcc"> cancel </button>
+                                <button name="confirm-updateAcc" type="submit" class="two"> Update! </button>
                             </div>
                         </div>
                     </form>

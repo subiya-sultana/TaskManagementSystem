@@ -18,7 +18,7 @@
         <!-- favicon -->
         <link rel="icon" type="image/png" href="" sizes="96x96">
         <!-- font aewsome cdn -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
@@ -29,25 +29,63 @@
                 <span>All Tasks</span>
                 <!-- <small></small> -->
             </div>
-            <div class="sort">
-                <i class="fa fa-solid fa-sort-amount-desc"></i>
-                <small>Sort By</small>
-            </div>
+            <form method="post">
+                <select name="sort-by" id="sort-box">
+                    <option hidden selected value="">Sort By</option>
+                    <option value="priority">Priority </option>
+                    <option value="old-task-first">(oldest) Date added </option>
+                    <option value="new-task-first">(newest) Date added &nbsp;&nbsp; </option>
+                    <option value="A-Z">(A-Z) Alphabetically</option>
+                    <option value="Z-A">(Z-A) Alphabetically</option>
+                </select>
+                <span class="buttons">
+                    <button class="two" name="sort-submit">Sort</button>
+                    <button class="one" name="sort-reset">Reset</button>
+                </span>
+            </form>
         </div>
         <div class="tasks">
 
             <?php
-                $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ";
+                if(isset($_POST['sort-submit'])){
+                    $sortBy = $_POST['sort-by'];
+                    if($sortBy == "priority"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `priority` ASC";
+                    }
+                    if($sortBy == "old-task-first"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `timestamp` ASC";
+                    }
+                    if($sortBy == "new-task-first"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `timestamp` DESC";
+                    }
+                    if($sortBy == "A-Z"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `task-name` ASC";
+                    }
+                    if($sortBy == "Z-A"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `task-name` DESC";
+                    }
+                    if($sortBy == ""){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}'";
+                    }
+                }
+                else{
+                    $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}'";
+                }
                 $result1 = mysqli_query($conn, $sql1) or die('query unsucessful');
                 if(mysqli_num_rows($result1) > 0){    
                     while($row = mysqli_fetch_assoc($result1)){
-                        // print_r($row['Sno']);
             ?>
-
             <div class="single-task">
                 <div class="todo">
                     <div class="checkbox">
-                        <i class="fa fa-solid fa-circle-thin"></i>
+                        <i id="<?php 
+                            if($row['priority'] == 1){echo 'first'; }
+                            else if($row['priority'] == 2){echo 'second'; }
+                            else if($row['priority'] == 3){echo 'third'; }
+                            else if($row['priority'] == 4){echo 'fourth'; }
+                            else{echo 'fourth'; }?>"
+                            class="fa fa-solid fa-circle-o">
+                        </i>
                     </div>
                     <div class="text">
                         <input type="text" hidden value="<?php echo $row['Sno'];?>">
@@ -77,35 +115,31 @@
                         <textarea name="task-desc" id="" cols="30" rows="3" placeholder="Task Description"></textarea>
                         <div class="buttons">
                             <div class="left-buttons">
-                                <span class="pop-up-container">
-                                    <button type="button" name="due-date" class="pop-up-button"><i class=" fa fa-solid fa-calendar-o"></i>Due date</button>
-                                    <!-- Pop up box -->
-                                    <div class="pop-up-box">
-                                        <i class=" fa fa-solid fa-caret-up"></i>
-                                        <p>deadline popup box</p>
-                                        <h3>hii</h3>
-                                        <span>  this is a pop up box </span>
-                                    </div>
-                                </span>
-                                <span class="pop-up-container">
-                                    <button type="button" name="priority" class="pop-up-button">Priority</button>
-                                    <!-- Pop up box -->
-                                    <div class="pop-up-box">
-                                        <i class=" fa fa-solid fa-caret-up"></i>
-                                        <p>priorty popup box</p>
-                                        <h3>hii</h3>
-                                        <span>  this is a pop up box </span>
-                                    </div>
-                                </span>
+                                <input type="datetime-local" id="due-date" placeholder="set due date">
+                                <select name="select-priority" id="priority">
+                                    <option value="4" selected hidden>Set Priority</option>
+                                    <option id="first" value="1">1st Priority</option>
+                                    <option id="second" value="2">2nd Priority</option>
+                                    <option id="third" value="3">3rd Priority</option>
+                                    <option id="fourth" value="4">No Priority</option>
+                                </select>
                             </div>
                             <div class="right-buttons">
-                                <button type="reset" id="one" name="cancelbtn" >cancel</button>
-                                <button class="addBtn" id="two" name="add-task" >Add Task</button>
+                                <button type="reset" class="one" id="one" name="cancelbtn">Cancel</button>
+                                <button class="addBtn two" name="add-task" >Add Task</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+            <?php 
+                if(mysqli_num_rows($result1) == 0){
+                    echo '<h1 class="tittle">No Tasks To Show! Add New Tasks here.</h1>
+                    <div class="img-container">
+                        <img src="../images/Add-tasks.GIF" alt="" class="add-task-image">
+                    </div>';
+                }
+            ?>
             <!-- Delete task Modal -->
             <div id="deleteModal" class="modal">
                 <div class="modal-content">
@@ -120,8 +154,8 @@
                         </div>
                         <div class="modal-footer">
                             <div class="buttons">
-                                <button name="reset" class="modalClose" type="button" id="one">cancel</button>
-                                <button name="del-task" type="submit" id="two"> Yes! </button>
+                                <button name="reset" class="modalClose one" type="button">cancel</button>
+                                <button name="del-task" type="submit" class="two"> Yes! </button>
                             </div>
                         </div>
                     </form>
@@ -142,8 +176,8 @@
                         </div>
                         <div class="modal-footer">
                             <div class="buttons">
-                                <button name="reset" id="one" class="modalClose" type="button">cancel</button>
-                                <button name="edit-task" id="two">Edit Task</button>
+                                <button name="reset" class="modalClose one" type="button">cancel</button>
+                                <button name="edit-task" class="two">Edit Task</button>
                             </div>
                         </div>
                     </form>

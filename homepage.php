@@ -8,7 +8,7 @@
     <!-- favicon -->
     <link rel="icon" type="image/png" href="images/favicon1.PNG" sizes="96x96">
     <!-- css file -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="homepage.css">
     <!-- font aewsome cdn -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- jquery cdn -->
@@ -30,7 +30,7 @@
             </ul>
         </div>
         <div>
-            <a href="register.php"><button class="btn">Get Started</button></a>
+            <a href="login.php"><button class="btn">Get Started</button></a>
             <label class="icon">
                 <i class="icons fa fa-solid fa-bars"></i>
             </label>
@@ -40,14 +40,14 @@
         <div class="left-container">
             <h1>Organize Anything From Anywhere With OrganizeU</h1>
             <p>Access OrganizeU on mobile, laptop, desktop and tablet. Free online task manager which will help you to stay organized, focused and get more done.</p>
-            <a href="register.php"><button class="btn"> Get Started </button></a>
+            <a href="login.php"><button class="btn"> Get Started </button></a>
         </div>
         <div class="right-container">
             <img src="images/homepage.gif" alt="">
         </div>
     </header>
     <!-- why organizeU section starts here -->
-    <section id="about" class="why-OU">
+    <section class="why-OU">
         <div class="left-container">
             <img src="images/Why-OU.gif" alt="">
         </div>
@@ -60,13 +60,13 @@
                 <li>Easy to use.</li>
             </ul>
             <p>And that is exactly what you get from OrganizeU - a free online task management website that is easy to use and features dozens of collaboration tools</p>
-            <a href="register.php"><button class="btn"> Get Started</button></a>
+            <a href="login.php"><button class="btn"> Get Started</button></a>
         </div>
     </section>
     <!-- why organizeU section ends here -->
 
     <!-- about section starts here -->
-    <section class="about">
+    <section id="about" class="about">
         <span>About OrganizeU</span>
         <h1>Delightfully simple and deceptively powerful <br> task management tool for you.</h1>
         <div class="container">
@@ -113,7 +113,7 @@
         <img src="images/banner.webp" alt="">
         <h1>Daily planner is the secret weapon of <br> successful people</h1>
         <p>OrganizeU helps busy people like you focus on what's important.<br> It helps people to save time and do the things that really matters.</p>
-        <a href="register.php"><button class="btn"> Get Started </button></a>
+        <a href="login.php"><button class="btn"> Get Started </button></a>
     </section>
     <!-- banner section ends here -->
 
@@ -122,7 +122,7 @@
         <h1>OrganizeU FAQ</h1>
         <div class="container">
             <div class="box">
-                    <div class="question">
+                <div class="question">
                     <h3>What is OrganizeU?</h3>
                     <i class="icons fa fa-solid fa-arrow-down"></i>
                 </div>
@@ -198,10 +198,10 @@
     </section>
     <!-- Contact section ends here -->
 
-    <!-- Footer section ends here -->
+    <!-- Footer section starts here -->
     <footer>
         <div>
-            <a href="homepage.html">
+            <a href="homepage.php">
                 <img src="images/logo3.PNG" alt="">
             </a>
             <p>Organize Anything From Anywhere With OrganizeU. Access OrganizeU on mobile, laptop, desktop and tablet. Free online task manager which will help you to stay organized, focused and get more done.</p>

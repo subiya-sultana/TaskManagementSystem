@@ -26,6 +26,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <!-- storyset attibute -->
+    <a href="https://storyset.com/user"></a>
 </head>
 <body>
     <?php 

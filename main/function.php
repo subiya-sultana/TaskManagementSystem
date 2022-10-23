@@ -3,12 +3,11 @@
     session_start();
     //connecting to database 
     require_once '../config.php';
-
     // calling functions
     if(isset($_POST['add-task'])){
         addTask($conn);
     }
-    if(isset($_GET['act'])){
+    if(isset($_GET['getEditData'])){
         $id = $_GET['id'];
         editGetData($conn, $id);
     }
@@ -17,13 +16,13 @@
     }  
     if(isset($_POST['del-task'])){
         deleteTask($conn);
-    } 
+    }
     if(isset($_POST['confirm-updateAcc']) || (isset($_POST['cancel-updateAcc'])) ){
         updateUserInfo($conn);
     }     
     if(isset($_POST['logout'])){
         logout();
-    } 
+    }
 
     // defining functions
     function addTask($conn) {
@@ -32,12 +31,16 @@
         $Sno = $_POST['Sno'];
         $taskName = $_POST['task-name'];
         $taskDesc = $_POST['task-desc'];
+        $priority = $_POST['select-priority'];
   
-        $sql = "INSERT INTO `tasks`( `task-name`, `task-desc`,`user-id`) VALUES ('{$taskName}','{$taskDesc}','{$_SESSION['id']}')";
+        $sql = "INSERT INTO `tasks`( `task-name`, `task-desc`,`user-id`,`priority`) VALUES ('{$taskName}','{$taskDesc}','{$_SESSION['id']}','{$priority}')";
         $result = mysqli_query($conn, $sql) or die('query unsuccessful');
     
-        header("location: http://localhost/CLGproject/main/main-page.php");
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
         mysqli_close($conn);
+        }
+        else if(isset($_POST['cancelBtn'])){
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
     function editGetData($conn, $id){
@@ -49,16 +52,16 @@
         }
     }
     function editTask($conn) {
+        var_dump($_POST);
+        $_POST['$server'];
         if(isset($_POST['edit-task'])){
-
             $Sno = $_POST['task-id'];
             $newTaskName = $_POST['new-task-name'];
             $newTaskDesc = $_POST['new-task-desc'];
             
             $sql= "UPDATE `tasks` SET `task-name`= '{$newTaskName}',`task-desc`='{$newTaskDesc}' WHERE Sno = {$Sno}";
             $result = mysqli_query($conn, $sql) or die(' query unsucessful'); 
-        
-            header("location: http://localhost/CLGproject/main/main-page.php");
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
             mysqli_close($conn);
         }
     }
@@ -68,8 +71,9 @@
             $Sno = $_POST['task-id'];
 
             $sql1 = "DELETE FROM `tasks` WHERE Sno = {$Sno}";
-            $result1 = mysqli_query($conn, $sql1) or die('query unsucessful');  
-            header("location: http://localhost/CLGproject/main/main-page.php?success=1");
+            $result1 = mysqli_query($conn, $sql1) or die('query unsucessful'); 
+             
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
             mysqli_close($conn);  
         }
     }
@@ -100,7 +104,6 @@
             }
         }
         if(isset($_POST['cancel-updateAcc'])){
-            echo 'herrrrrrr';
             header("location: http://localhost/CLGproject/main/main-page.php");
         }
     }
@@ -112,6 +115,6 @@
             header("location: ../login.php");
         } 
     }
-
-
+    
+    
 ?>
