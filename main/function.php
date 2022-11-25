@@ -93,7 +93,7 @@
             $new_email = $_POST['new-email'];
 
             if(empty(trim($_POST['new-username'])) || empty(trim($_POST['new-email']))){
-                header("location: http://localhost/CLGproject/main/main-page.php?err=empty-values");
+                header("location: main-page.php?err=empty-values");
             }
             else{
                 mysqli_query($conn,"start transaction;");
@@ -102,16 +102,16 @@
                 $check_email = mysqli_query($conn, "SELECT email FROM users where email = '$new_email' ");
                 if(mysqli_num_rows($check_email) > 1){
                     mysqli_query($conn,"rollback;");
-                    header("location: http://localhost/CLGproject/main/main-page.php?err=email-taken");
+                    header("location: main-page.php?err=email-taken");
                 }
                 else{
                     mysqli_query($conn,"commit;");
-                    header("location: http://localhost/CLGproject/main/main-page.php?status=updated");
+                    header("location: main-page.php?status=updated");
                 }
             }
         }
         if(isset($_POST['cancel-updateAcc'])){
-            header("location: http://localhost/CLGproject/main/main-page.php");
+            header("location: main-page.php");
         }
     }
     function deleteAccount($conn) {
@@ -124,7 +124,7 @@
             $user_email = trim($_POST['email']);
             $user_password = trim($_POST['password']);
             if(empty(trim($_POST['email'])) || empty(trim($_POST['password']))){
-                header("location: http://localhost/CLGproject/main/main-page.php?err=emp-val");
+                header("location: main-page.php?err=emp-val");
             }
             else if($_POST['email'] == $_SESSION['email'] && password_verify($_POST['password'], $_SESSION['password'])){
                 $err = "";
@@ -132,15 +132,15 @@
                 $result3 = mysqli_query($conn, $sql3) or die('query unsucessful');
                 $_SESSION = array();
                 session_destroy();
-                header("location: http://localhost/CLGproject/register.php");
+                header("location: ../register.php");
             }
             else{
-                header("location: http://localhost/CLGproject/main/main-page.php?err=wrong-val");
+                header("location: main-page.php?err=wrong-val");
             }
         }
         if (isset($_POST['cancel-deleteAcc'])){
             echo "<script>$('#userInfoModal').css('display', 'block');</script>";
-            header("location: http://localhost/CLGproject/main/main-page.php");
+            header("location: main-page.php");
         }
     }
     function logout(){

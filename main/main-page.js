@@ -3,7 +3,7 @@ console.log('this file works');
 $(document).ready(function(){
     // redirecting to home page when clicked on home icon
     $('nav .fa-home').click(function(){
-        window.location.href = "http://localhost/CLGproject/homepage.php";
+        window.location.href = "homepage.php";
     });
     // showing sidebar on click of menu icon
     $('nav .fa-bars').click(function(){

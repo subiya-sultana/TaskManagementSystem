@@ -23,25 +23,25 @@
             </div>
             <ul>
                 <li id="alltasks" <?php if ($currentPage=="All tasks") echo 'class="active"';?>>
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=All tasks">
+                    <a href="main-page.php?page=All tasks">
                         <i class="fa fa-solid fa-inbox"></i>
                         <span>All Tasks</span>
                     </a>
                 </li>
                 <li name="today" id="today" <?php if ($currentPage=="Today tasks") echo 'class="active"';?>>
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=Today tasks">
+                    <a href="main-page.php?page=Today tasks">
                         <i class="fa fa-solid fa-clock-o"></i>
                         <span>Today</span>
                     </a>
                 </li>
                 <li id="overdue" <?php if ($currentPage=="Overdue tasks") echo 'class="active"';?>>
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=Overdue tasks">
+                    <a href="main-page.php?page=Overdue tasks">
                         <i class="fa fa-solid fa-exclamation-triangle"></i>
                         <span>Overdue</span>
                     </a>
                 </li>
                 <li id="upcoming" <?php if ($currentPage=="Upcoming tasks") echo 'class="active"';?>>
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=Upcoming tasks">
+                    <a href="main-page.php?page=Upcoming tasks">
                         <i class="fa fa-solid fa-calendar"></i>
                         <span>Upcoming</span>
                     </a>
@@ -55,31 +55,31 @@
             </div>
             <ul>
                 <li id="list">
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=list">
+                    <a href="main-page.php?page=list">
                         <i class="fa fa-solid fa-ellipsis-h"></i>
                         <span>Shopping</span>
                     </a>
                 </li>
                 <li id="list">
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=list">
+                    <a href="main-page.php?page=list">
                         <i class="fa fa-solid fa-ellipsis-h"></i>
                         <span>Personal</span>
                     </a>
                 </li>
                 <li id="list">
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=list">
+                    <a href="main-page.php?page=list">
                         <i class="fa fa-solid fa-ellipsis-h"></i>
                         <span>Work</span>
                     </a>
                 </li>
                 <li id="list">
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=list">
+                    <a href="main-page.php?page=list">
                         <i class="fa fa-solid fa-ellipsis-h"></i>
                         <span>Education</span>
                     </a>
                 </li>
                 <li id="list">
-                    <a href="http://localhost/CLGproject/main/main-page.php?page=list">
+                    <a href="main-page.php?page=list">
                         <i class="fa fa-solid fa-ellipsis-h"></i>
                         <span>Grocery</span>
                     </a>
