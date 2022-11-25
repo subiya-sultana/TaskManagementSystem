@@ -59,8 +59,7 @@
                 else{
                     $currentPage="Today tasks";
                     include_once('today-tasks.php');
-                }
-                                
+                }              
             ?>
     </section>
     <!-- js file -->

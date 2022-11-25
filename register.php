@@ -1,5 +1,5 @@
 <?php 
-    // connecting to database
+    // connecting to database 
     require_once 'config.php'; 
 ?>
 

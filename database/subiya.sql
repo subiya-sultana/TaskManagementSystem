@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2022 at 09:21 PM
+-- Generation Time: Nov 25, 2022 at 04:00 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -31,8 +31,9 @@ CREATE TABLE `tasks` (
   `Sno` int(11) NOT NULL,
   `task-name` varchar(200) NOT NULL,
   `task-desc` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `due-date` timestamp NULL DEFAULT current_timestamp(),
   `priority` int(10) DEFAULT 4,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `user-id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -40,37 +41,19 @@ CREATE TABLE `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`Sno`, `task-name`, `task-desc`, `timestamp`, `priority`, `user-id`) VALUES
-(53, 'hellooo', 'all data got wipedd', '2022-10-08 11:52:20', 4, 38),
-(62, 'is it working now??', 'yooooo', '2022-10-08 12:48:44', 4, 38),
-(67, 'all tasks here', 'is it happening', '2022-10-12 17:25:56', 4, 38),
-(83, 'today task', '', '2022-10-21 16:45:51', 4, 38),
-(84, 'another task added today', '', '2022-10-21 16:46:08', 4, 38),
-(109, 'is it working now??', '', '2022-10-22 12:21:45', 4, 36),
-(110, 'fghmj,', '', '2022-10-22 12:21:49', 4, 36),
-(111, 'adding this now', '', '2022-10-22 15:46:57', 4, 38),
-(112, 'is it working now??', '', '2022-10-22 17:04:53', 4, 38),
-(113, 'zzzzzzzzzz', '', '2022-10-22 17:04:57', 4, 38),
-(114, 'aaaaaaaaaaaa', '', '2022-10-22 17:05:02', 4, 38),
-(115, 'last added task', '', '2022-10-22 17:05:10', 4, 38),
-(116, '', '', '2022-10-22 17:28:50', 4, 38),
-(117, '', '', '2022-10-22 19:43:19', 4, 38),
-(118, 'is it working now??', '    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n', '2022-10-22 20:13:34', 4, 38),
-(119, 'fghmj,', '    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n    border: 2px solid yellow;\r\n', '2022-10-22 20:13:45', 4, 38),
-(120, 'is it working now??    border: 2px solid yellow;    border: 2px solid yellow;    border: 2px solid yellow;    border: 2px solid yellow;    border: 2px solid yellow;    border: 2px solid yellow;    bor', '', '2022-10-22 20:14:05', 4, 38),
-(121, 'another task', '', '2022-10-22 20:15:10', 2, 38),
-(122, 'new  task', '', '2022-10-22 20:15:21', 1, 38),
-(123, 'new task', '', '2022-10-22 20:15:35', 1, 38),
-(124, 'adding new taskkkkkkk with 2nd priority', '', '2022-10-22 20:59:39', 4, 38),
-(125, 'new task', '', '2022-10-22 21:01:15', 4, 38),
-(126, 'new task', '', '2022-10-22 21:01:27', 4, 38),
-(127, 'my priority is 3rd', '', '2022-10-22 21:02:44', 3, 38),
-(128, 'sdfghjk', '', '2022-10-23 10:57:57', 1, 38),
-(129, 'taskkkkkkkk', '', '2022-10-23 12:17:58', 1, 38),
-(130, 'first priotity', '', '2022-10-23 12:21:37', 1, 38),
-(131, '', '', '2022-10-23 12:35:34', 3, 38),
-(132, 'is it working now??', '', '2022-10-23 12:59:15', 2, 38),
-(133, 'is it working now??', '', '2022-10-23 12:59:22', 2, 38);
+INSERT INTO `tasks` (`Sno`, `task-name`, `task-desc`, `due-date`, `priority`, `timestamp`, `user-id`) VALUES
+(1, 'is it working now??', 'i think yessss', '2022-11-25 18:29:00', 4, '2022-11-25 14:51:33', 1),
+(2, 'hello this is today task with 1st priority', 'and this is first priority task description', '2022-11-25 18:29:00', 1, '2022-11-25 14:52:03', 1),
+(3, '2nd priority task', '', '2022-11-25 18:29:00', 2, '2022-11-25 14:52:20', 1),
+(4, 'another task with 1st priority here', 'and also with due date of 1 jan 2023', '2023-01-01 18:29:00', 1, '2022-11-25 14:53:14', 1),
+(5, 'hii this is task with 3rd priority', '', '2022-12-11 18:29:00', 3, '2022-11-25 14:53:46', 1),
+(6, 'task with no priorityy sett', '', '2022-11-25 18:29:00', 4, '2022-11-25 14:54:21', 1),
+(7, 'aaaa', 'aaaa', '2022-11-25 18:29:00', 4, '2022-11-25 14:54:43', 1),
+(8, 'zzzz', 'zzzz', '2022-11-25 18:29:00', 4, '2022-11-25 14:54:57', 1),
+(9, 'another task here ', '', '2022-11-25 18:29:00', 2, '2022-11-25 14:55:21', 1),
+(10, 'my task', '', '2022-11-25 18:29:00', 2, '2022-11-25 14:55:30', 1),
+(11, 'why it is not getting save in database?', 'now it got saved ', '2022-11-25 18:29:00', 3, '2022-11-25 14:56:04', 1),
+(12, 'completeddddddddd', 'yeahhhhhhhh', '2022-11-25 18:29:00', 4, '2022-11-25 14:56:18', 1);
 
 -- --------------------------------------------------------
 
@@ -91,8 +74,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `created_at`) VALUES
-(36, 'mohdshakerali0@gmail.com', 'subiyaaa', '$2y$10$gzqIvsEHGqP17crllQhm3uqwiarz8I9g9FnHY9gwUFFSIvyxWOwJO', '2022-10-07 15:40:19'),
-(38, 'mohammedsadiqali029@gmail.com', 'subiya', '$2y$10$xW8Uk4Rxg6H1NIJW6wWSTeZT0iqiRuASY/UAAAv.6ZfaWHtWc8o/W', '2022-10-08 17:21:41');
+(1, 'itsmesubiya@gmail.com', 'subiya', '$2y$10$Wyk6Wg15TGUGd.9DDtYgbOlziJdO/9O94t9K5SBR.yNVNcQdzwwz2', '2022-11-25 20:20:28');
 
 --
 -- Indexes for dumped tables
@@ -119,13 +101,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `Sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `Sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

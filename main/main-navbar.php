@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>OrganizeU:<?php if ($currentPage!="")echo " $currentPage"; ?></title>
     <!-- css file -->
     <link rel="stylesheet" href="main-page.css">
     <!-- favicon -->
@@ -18,8 +18,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <!-- storyset attibute -->
+    <a href="https://storyset.com/user"></a>
 </head>
-
 <body>
     <nav>
         <div class="left-icons">
@@ -56,7 +57,7 @@
                             <input type="text" name="new-username" value="<?php echo $row['username'];?>">
                             <label for="">Email</label>
                             <input type="text" name="new-email" value="<?php echo $row['email'];?>">
-                            <!-- php code for updating account -->
+                            <!-- php code for showing update account messages -->
                             <?php     
                                 if (isset($_GET['err']) && $_GET['err'] == 'empty-values' ){
                                     echo '<p style="color:red;">Username or email cannot be empty. No updates done.</p>';
@@ -66,7 +67,7 @@
                                     echo '<p style="color:red;">This email is already taken. No updates done.</p>';
                                     echo "<script>$('#userInfoModal').css('display', 'block');</script>";
                                 } 
-                                elseif (isset($_GET['updated']) && $_GET['updated'] == 1 ){
+                                elseif (isset($_GET['status']) && $_GET['status'] == 'updated' ){
                                     echo '<p style="color:red;">Updates done.</p>';
                                     echo "<script>$('#userInfoModal').css('display', 'block');</script>";
                                 }
@@ -93,7 +94,7 @@
                         <span class="modalClose">&times;</span>
                         <h2><i id="return" class="fa fa-solid fa-arrow-left"></i> Delete Account?</h2>
                     </div>
-                    <form action="" method="post" target="_top">
+                    <form action="function.php" method="post">
                         <input type="hidden" name="user_id" value="">
                         <div class="modal-body">
                             <h4>Are you sure u want to delete your account?</h4>
@@ -105,54 +106,35 @@
                             <label for="">OrganizeU Password</label>
                             <input type="password" name="password" value="">
                             <p>Deleting your account requires your current email and password as confirmation.</p>
-                            <!-- php code for deleting account -->
+                            <!-- php code for showing delete account messages -->
                             <?php 
-                                $user_email = $user_password = '';
-                                $err = '';
-                                if (isset($_POST['confirm-delete'])){
-                                    $user_email = trim($_POST['email']);
-                                    $user_password = trim($_POST['password']);
-                                    if(empty(trim($_POST['email'])) || empty(trim($_POST['password']))){
-                                        $err = 'Please enter email + password and try again.';
-                                        echo '<p style="color:red;">'. $err .'</p>';
-                                    }
-                                    else if($_POST['email'] == $_SESSION['email'] && password_verify($_POST['password'], $_SESSION['password'])){
-                                        $err = "";
-                                        $sql3 = "DELETE FROM `users` WHERE `email` = '{$_SESSION['email']}' ";
-                                        $result3 = mysqli_query($conn, $sql3) or die('query unsucessful');
-                                        $_SESSION = array();
-                                        session_destroy();
-                                        echo "<script type='text/javascript'>window.top.location='http://localhost/CLGproject/register.php';</script>"; 
-                                        exit;
-                                    }
-                                    else{
-                                        $err = 'You entered an incorrect email or password. Please confirm and try again.';
-                                        echo '<p style="color:red;">'. $err .'</p>';
-                                    }
-                                    if ($err) {
-                                    echo "<script>$('#deleteAccountModal').css('display', 'block');</script>";
-                                    }
-                                }
+                            if (isset($_GET['err']) && $_GET['err'] == 'emp-val' ){
+                                echo '<p style="color:red;">Please enter email + password and try again.</p>';
+                                echo "<script>$('#deleteAccountModal').css('display', 'block');</script>";
+                            } 
+                            elseif (isset($_GET['err']) && $_GET['err'] == 'wrong-val' ){
+                                echo '<p style="color:red;">You have entered an incorrect email or password. Please confirm and try again.</p>';
+                                echo "<script>$('#deleteAccountModal').css('display', 'block');</script>";
+                            } 
                             ?>
                         </div>
                         <div class="modal-footer">
                             <hr>
                             <div class="buttons">
-                                <button name="cancel-delete" type="submit" id="one"> cancel </button>
-                                <button name="confirm-delete" type="submit" id="two">Del Acc</button>
+                                <button name="cancel-deleteAcc" type="submit" class="one"> cancel </button>
+                                <button name="confirm-deleteAcc" type="submit" class="two">Del Acc</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="left-icons">
+        <!-- <div class="left-icons">
             <span class="searchbar">
                 <i id="search-icon" class="icons fa fa-solid fa-search"></i>
                 <input type="text" placeholder="Search">
                 <i id="close-icon" class="icons fa fa-solid fa-close"></i>
             </span>
-        </div>
+        </div> -->
     </nav>
 </body>
-</html>

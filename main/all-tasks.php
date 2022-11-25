@@ -1,26 +1,28 @@
 <?php 
-    // starting session if it is not started
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    // connecting to database
-    require_once '../config.php';
+// starting session if it is not started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// connecting to database
+require_once '../config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title></title>
-        <!-- css file -->
-        <link rel="stylesheet" href="main-page.css">
-        <!-- favicon -->
-        <link rel="icon" type="image/png" href="" sizes="96x96">
-        <!-- font aewsome cdn -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-        <!-- jquery cdn -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrganizeU:<?php if ($currentPage!="")echo " $currentPage"; ?></title>
+    <!-- css file -->
+    <link rel="stylesheet" href="main-page.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="" sizes="96x96">
+    <!-- font aewsome cdn -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <!-- storyset attibute -->
+    <a href="https://storyset.com/user"></a>
 </head>
 <body>
     <section id="content-alltasks" class="content">
@@ -33,6 +35,8 @@
                 <select name="sort-by" id="sort-box">
                     <option hidden selected value="">Sort By</option>
                     <option value="priority">Priority </option>
+                    <option value="due-date-asc">(Early) Due date </option>
+                    <option value="due-date-desc">(Later) Due date </option>
                     <option value="old-task-first">(oldest) Date added </option>
                     <option value="new-task-first">(newest) Date added &nbsp;&nbsp; </option>
                     <option value="A-Z">(A-Z) Alphabetically</option>
@@ -52,6 +56,12 @@
                     if($sortBy == "priority"){
                         $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `priority` ASC";
                     }
+                    if($sortBy == "due-date-asc"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `due-date` ASC";
+                    }
+                    if($sortBy == "due-date-desc"){
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `due-date` DESC";
+                    }
                     if($sortBy == "old-task-first"){
                         $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `timestamp` ASC";
                     }
@@ -65,7 +75,7 @@
                         $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ORDER BY `task-name` DESC";
                     }
                     if($sortBy == ""){
-                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}'";
+                        $sql1 = "SELECT * FROM `tasks` WHERE `user-id` = '{$_SESSION['id']}' ";
                     }
                 }
                 else{
@@ -91,7 +101,10 @@
                         <input type="text" hidden value="<?php echo $row['Sno'];?>">
                         <span class="task-name"><?php echo $row['task-name'];?></span>
                         <p class="task-desc"><?php echo $row['task-desc'];?></p>
-                        <small style="color: #bbb;"><?php echo '<i style="font-size:16px;" class=" fa fa-solid fa-calendar-o"></i>'.$row['timestamp'];?></small>                        
+                        <div class="display-date">
+                            <small style="color: rgb(255, 0, 0, 0.6);"><?php $dueDate = strtotime($row['due-date']); $myFormatForView = date("d M g:i A", $dueDate); echo ' <i style="font-size:16px;" class=" fa fa-solid fa-calendar-o"></i> Due date: ' . $myFormatForView;?></small>                        
+                            <!-- <small style="color: #bbb;"><?php //echo 'Task added on: '.$row['timestamp'];?></small>                         -->
+                        </div>                    
                     </div>
                 </div>
                 <div class="icons">
@@ -115,7 +128,22 @@
                         <textarea name="task-desc" id="" cols="30" rows="3" placeholder="Task Description"></textarea>
                         <div class="buttons">
                             <div class="left-buttons">
-                                <input type="datetime-local" id="due-date" placeholder="set due date">
+                                <?php
+
+                                    date_default_timezone_set('Asia/Kolkata'); 
+
+                                    $minDate = date("Y-m-d");
+                                    $minTime = date("h:i");
+                                    $min = $minDate."T".$minTime;
+                                    
+                                    $defaultDate = date("Y-m-d");
+                                    $defaultTime = date("23:59");
+                                    $default = $defaultDate."T".$defaultTime;
+                                    ?>
+                                <input name="select-due-date"
+                                type="datetime-local" id="due-date" placeholder="set due date"
+                                min="<?php echo $min?>" value="<?php echo $default;?>"
+                                >
                                 <select name="select-priority" id="priority">
                                     <option value="4" selected hidden>Set Priority</option>
                                     <option id="first" value="1">1st Priority</option>
@@ -171,8 +199,23 @@
                     <form action="function.php" method="post">
                         <div class="modal-body">
                             <input type="hidden" name="task-id" id="editId" value="">
+                            <h4>Task name:</h4>
                             <input type="text" id="editName" name="new-task-name" placeholder="Task Name" value="">
+                            <h4>Task description:</h4>
                             <textarea id="editDesc" name="new-task-desc" cols="30" rows="3" placeholder="Task Description"></textarea>
+                            <h4>Task priorty:</h4>
+                            <select id="editPriority" name="new-priority">
+                                <option value="4" selected hidden>Set Priority</option>
+                                <option id="first" value="1">1st Priority</option>
+                                <option id="second" value="2">2nd Priority</option>
+                                <option id="third" value="3">3rd Priority</option>
+                                <option id="fourth" value="4">No Priority</option>
+                            </select>
+                            <h4>Task due date:</h4>
+                            <input id="editDuedate" name="new-due-date"
+                                type="datetime-local" id="due-date" placeholder="set due date"
+                                min="<?php echo $min?>" value=""
+                            >
                         </div>
                         <div class="modal-footer">
                             <div class="buttons">
@@ -183,12 +226,10 @@
                     </form>
                 </div>
             </div>
-            
         
         </div>    
     </section>
-</body>
-</html>
-<?php 
+    <?php 
     mysqli_close($conn); 
-?>
+    ?>
+</body>

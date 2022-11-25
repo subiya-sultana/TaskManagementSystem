@@ -73,6 +73,7 @@ nav .searchbar input .show{
 nav .searchbar #close-icon .show{
     display: inline-block;
 } */
+
 /* navbar css ends here */
 
 .wrapper{
@@ -214,13 +215,25 @@ nav .searchbar #close-icon .show{
 .content .add-task .show{
     display: inline-block !important;
 }
-.content .add-task-body input,.add-task-body textarea, #editModal input, #editModal textarea{
+.content .add-task-body input,.add-task-body textarea, #editModal input, #editModal textarea, #editModal select{
     width: 98%;
     padding: 4px;
     outline: none;
     resize: none;
     border: none;
-    margin: 0 0 0 5px;
+    margin: 0 0 5px 5px;
+}
+#editModal input, #editModal textarea, #editModal select{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+}
+#editModal h4 {
+ padding: 5px 8px;
+ color: gray;
+}
+#editModal input#editDuedate {
+    font-weight: normal;
 }
 .content .add-task-body textarea{
     resize: none;
@@ -411,10 +424,10 @@ nav .searchbar #close-icon .show{
 }
 .modal-content{
     position: fixed;
-    top: 35%;
-    left: 20%;
+    top: 20%;
+    left: 22%;
     width: 60%;
-    max-height: 60%;
+    max-height: 65%;
     overflow-y: scroll;
     background-color: #fefefe;
     border-radius: 15px;
@@ -451,13 +464,6 @@ nav .searchbar #close-icon .show{
     padding: 2px 16px;
     color: white;
 }
-.userInfoModal .modal-content{
-    position: fixed;
-    top: 20%;
-    left: 22%;
-    max-height: 70%;
-    overflow-y: scroll;
-}
 .userInfoModal p{
     color: gray;
     font-size: 14px;
@@ -475,7 +481,7 @@ nav .searchbar #close-icon .show{
 .userInfoModal .modal-body button:hover{
     background-color: #ddd;
 }
-.userInfoModal hr{
+.userInfoModal hr, #editModal hr{
     margin: 5px 0;
     height: 1px;
     background-color: #ccc;
@@ -518,9 +524,9 @@ nav .searchbar #close-icon .show{
     font-weight: 500;
 }
 
-
-
 /* content section css ends here */
+
+/* responsive */
 @media screen and (max-width: 750px){
     .sidebar{
         display: none;
@@ -530,14 +536,9 @@ nav .searchbar #close-icon .show{
     }
     .modal-content{
         position: fixed;
-        top: 35%;
-        left: 15%;
-        width: 70%;
-    }
-    .userInfoModal .modal-content{
-        position: fixed;
         top: 15%;
         left: 15%;
+        width: 70%;
     }
 }
 @media screen and (max-width: 600px){
@@ -547,14 +548,9 @@ nav .searchbar #close-icon .show{
     }
     .modal-content{
         position: fixed;
-        top: 35%;
-        left: 10%;
-        width: 80%;
-    }
-    .userInfoModal .modal-content{
-        position: fixed;
         top: 15%;
         left: 10%;
+        width: 80%;
     }
     .content .add-task-body .buttons{
         justify-content: space-around;

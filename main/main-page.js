@@ -15,7 +15,7 @@ $(document).ready(function(){
         $(this).find('i').toggleClass('fa-angle-down fa-angle-right');
     });
     // changing sidebar links css when file gets changed
-    $('.sidebar ul li').click(function(){
+    $('.sidebar ul li ').click(function(){
         $('.sidebar ul li').removeClass('active');
         $(this).toggleClass('active');
     });
@@ -62,9 +62,14 @@ $(document).ready(function(){
             var gid = res[0]['Sno'];
             var gtext = res[0]['task-name'];
             var gdes = res[0]['task-desc'];
+            var gdue = res[0]['due-date'];
+            var gpriority = res[0]['priority'];
             $('#editId').val(gid);
             $('#editName').val(gtext);
             $('#editDesc').val(gdes);
+            $('#editDuedate').val(gdue);
+            $('#editPriority').val(gpriority);
+
         });
         $('#editModal').css('display', 'block');
         
@@ -91,4 +96,11 @@ $(document).ready(function(){
         $('#deleteAccountModal').css('display', 'none');
         $('#userInfoModal').css('display', 'block');
     });
+    // disable form submit on enter key
+    $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
 });

@@ -36,6 +36,7 @@
 .btn:hover{
 background-color:var(--background-color);    
 }
+
 /* navbar css starts here */
 nav{
     width: 100%;
@@ -287,8 +288,11 @@ section{
 .contact .right-container form textarea{
     width: 97%;
     resize: none;
-    padding: 5px 10px;
+    padding: 6px 10px;
     overflow: auto;
+}
+.contact .right-container form button{
+    margin-left: 6px;
 }
 .contact .left-container .slogan{
     margin: 40px auto;

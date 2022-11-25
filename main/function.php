@@ -3,6 +3,7 @@
     session_start();
     //connecting to database 
     require_once '../config.php';
+
     // calling functions
     if(isset($_POST['add-task'])){
         addTask($conn);
@@ -19,7 +20,10 @@
     }
     if(isset($_POST['confirm-updateAcc']) || (isset($_POST['cancel-updateAcc'])) ){
         updateUserInfo($conn);
-    }     
+    }  
+    if(isset($_POST['confirm-deleteAcc']) || (isset($_POST['cancel-deleteAcc'])) ){
+        deleteAccount($conn);
+    }   
     if(isset($_POST['logout'])){
         logout();
     }
@@ -31,9 +35,10 @@
         $Sno = $_POST['Sno'];
         $taskName = $_POST['task-name'];
         $taskDesc = $_POST['task-desc'];
+        $dueDate = $_POST['select-due-date'];
         $priority = $_POST['select-priority'];
   
-        $sql = "INSERT INTO `tasks`( `task-name`, `task-desc`,`user-id`,`priority`) VALUES ('{$taskName}','{$taskDesc}','{$_SESSION['id']}','{$priority}')";
+        $sql = "INSERT INTO `tasks`( `user-id`,`task-name`, `task-desc`,`due-date`,`priority`) VALUES ('{$_SESSION['id']}','{$taskName}','{$taskDesc}','{$dueDate}','{$priority}')";
         $result = mysqli_query($conn, $sql) or die('query unsuccessful');
     
         header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -58,8 +63,10 @@
             $Sno = $_POST['task-id'];
             $newTaskName = $_POST['new-task-name'];
             $newTaskDesc = $_POST['new-task-desc'];
+            $newPriority = $_POST['new-priority'];
+            $newDuedate = $_POST['new-due-date'];
             
-            $sql= "UPDATE `tasks` SET `task-name`= '{$newTaskName}',`task-desc`='{$newTaskDesc}' WHERE Sno = {$Sno}";
+            $sql= "UPDATE `tasks` SET `task-name`= '{$newTaskName}',`task-desc`='{$newTaskDesc}', `due-date`= '{$newDuedate}',`priority`='{$newPriority}' WHERE Sno = {$Sno}";
             $result = mysqli_query($conn, $sql) or die(' query unsucessful'); 
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             mysqli_close($conn);
@@ -99,11 +106,40 @@
                 }
                 else{
                     mysqli_query($conn,"commit;");
-                    header("location: http://localhost/CLGproject/main/main-page.php?updated=1");
+                    header("location: http://localhost/CLGproject/main/main-page.php?status=updated");
                 }
             }
         }
         if(isset($_POST['cancel-updateAcc'])){
+            header("location: http://localhost/CLGproject/main/main-page.php");
+        }
+    }
+    function deleteAccount($conn) {
+
+        echo "<script>$('#deleteAccountModal').css('display', 'block');</script>";
+
+        $user_email = $user_password = '';
+        $err = '';
+        if (isset($_POST['confirm-deleteAcc'])){
+            $user_email = trim($_POST['email']);
+            $user_password = trim($_POST['password']);
+            if(empty(trim($_POST['email'])) || empty(trim($_POST['password']))){
+                header("location: http://localhost/CLGproject/main/main-page.php?err=emp-val");
+            }
+            else if($_POST['email'] == $_SESSION['email'] && password_verify($_POST['password'], $_SESSION['password'])){
+                $err = "";
+                $sql3 = "DELETE FROM `users` WHERE `email` = '{$_SESSION['email']}' ";
+                $result3 = mysqli_query($conn, $sql3) or die('query unsucessful');
+                $_SESSION = array();
+                session_destroy();
+                header("location: http://localhost/CLGproject/register.php");
+            }
+            else{
+                header("location: http://localhost/CLGproject/main/main-page.php?err=wrong-val");
+            }
+        }
+        if (isset($_POST['cancel-deleteAcc'])){
+            echo "<script>$('#userInfoModal').css('display', 'block');</script>";
             header("location: http://localhost/CLGproject/main/main-page.php");
         }
     }

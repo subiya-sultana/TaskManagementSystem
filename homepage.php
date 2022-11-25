@@ -182,17 +182,17 @@
             </div>
         </div>
         <div class="right-container">
-            <form action="">
+            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
                 <div class="inputBox">
-                    <input type="text" placeholder="FirstName">
-                    <input type="text" placeholder="LastName">
+                    <input type="text" placeholder="First name" name="FirstName" required>
+                    <input type="text" placeholder="Last name" name="LastName" required>
                 </div>
                 <div class="inputBox">
-                    <input type="email" name="" id="" placeholder="Enter your email here">
+                    <input type="email" name="email" id="" placeholder="Enter your email here" required>
                     <input type="number" placeholder="Enter your number here">
                 </div>
-                <textarea name="" id="" cols="10" rows="6"></textarea>
-                <button type="reset" class="btn">Message</button>
+                <textarea name="" id="" cols="10" rows="6" required></textarea>
+                <button class="btn" type="submit" name="submitMessage" >Message</button>
             </form>
         </div>
     </section>
@@ -230,5 +230,6 @@
 
     <!-- JS file -->
     <script src="index.js"></script>
+    
 </body>
 </html>

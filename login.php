@@ -5,7 +5,7 @@
         header("location: main/main-page.php");
         exit;
     }
-    // connecting to database
+    // connecting to database 
     require_once 'config.php';
     $email = $username = $password = "";
     $err = "";

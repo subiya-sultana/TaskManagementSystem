@@ -119,6 +119,7 @@
 .register-container .right i{
     color: black;
 }
+
 /* responsive */
 @media screen and (max-width:850px) {
     .btn{
