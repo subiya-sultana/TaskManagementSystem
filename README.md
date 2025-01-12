@@ -1,8 +1,6 @@
 
 # Task Management System
 
----
-
 ## How to Set Up and Run the Project on Localhost
 
 Follow these steps to set up the project on your local machine:
