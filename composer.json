@@ -1,5 +1,5 @@
 {
-    "name": "taskmanagementsystem",
+    "name": "project/taskmanagementsystem",
     "description": "A simple PHP project for task management",
     "require": {},
     "scripts": {
