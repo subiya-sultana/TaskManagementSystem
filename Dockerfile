@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install/Enable mysqli on Your Server
+RUN apt-get update && apt-get install -y libmysqlclient-dev && docker-php-ext-install mysqli
+
 # Enable Apache Rewrite Module (Optional)
 RUN a2enmod rewrite
 
