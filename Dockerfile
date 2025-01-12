@@ -9,7 +9,9 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install/Enable mysqli on Your Server
-RUN apt-get update && apt-get install -y libmysqlclient-dev && docker-php-ext-install mysqli
+RUN apt-get update && apt-get install -y libmysqlclient-dev && \
+    docker-php-ext-install mysqli && \
+    docker-php-ext-enable mysqli
 
 # Enable Apache Rewrite Module (Optional)
 RUN a2enmod rewrite
