@@ -1,0 +1,9 @@
+{
+    "name": "taskmanagementsystem",
+    "description": "A simple PHP project for task management",
+    "require": {},
+    "scripts": {
+      "start": "php -S 0.0.0.0:10000 -t ."
+    }
+}
+  
