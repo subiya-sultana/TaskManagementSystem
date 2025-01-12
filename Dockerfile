@@ -8,12 +8,12 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install/Enable mysqli on Your Server
-RUN apt-get update && apt-get install -y libmysqlclient-dev && \
-    docker-php-ext-install mysqli && \
-    docker-php-ext-enable mysqli
+# Install/Enable mysqli support
+RUN apt-get update && apt-get install -y libmariadb-dev-compat libmariadb-dev \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-enable mysqli
 
-# Enable Apache Rewrite Module (Optional)
+# Enable Apache Rewrite Module (Optional, for clean URLs)
 RUN a2enmod rewrite
 
 # Copy your application files to the container
@@ -30,3 +30,4 @@ EXPOSE 80
 
 # Start Apache server
 CMD ["apache2-foreground"]
+

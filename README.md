@@ -39,7 +39,7 @@ Ensure you have [XAMPP](https://www.apachefriends.org/index.html) installed on y
 ### **Step 5: Access the Project**  
 1. Open your browser and go to:  
    - [http://localhost/TaskManagementSystem](http://localhost/TaskManagementSystem)  
-   - Or directly access the homepage: [http://localhost/TaskManagementSystem/homepage.php](http://localhost/TaskManagementSystem/homepage.php).  
+   - Or directly access the homepage: [http://localhost/TaskManagementSystem/index.php](http://localhost/TaskManagementSystem/index.php).  
 2. You should now see the Task Management System running on your localhost.
 
 ---

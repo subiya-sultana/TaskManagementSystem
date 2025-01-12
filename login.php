@@ -34,7 +34,7 @@
         <div class="left" data-aos="fade-right">
             <div>
                 <img src="images/logo3.PNG" alt="">
-                <a href="homepage.php" class="fa fa-arrow-left">Back to homepage</a>
+                <a href="index.php" class="fa fa-arrow-left">Back to homepage</a>
             </div>
             <h1>Accomplish more with the help of OrganizeU</h1>
             <p>OrganizeU helps busy people like you focus on what's important. It helps people to save time and do the things that really matters.</p>
