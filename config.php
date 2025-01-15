@@ -9,10 +9,10 @@
     
     
     //connecting to database
-    $servername = 'dpg-cu3rgfhopnds738o07g0-a';
+    $host = 'dpg-cu3rgfhopnds738o07g0-a';
     $username = 'root';
     $password = '5grnWoHqmvN7YNcNU1xvINLtAFht8AYY';
-    $database = 'taskmanagementsystem_24a8';
+    $dbname = 'taskmanagementsystem_24a8';
     $port = '5432'; 
 
     try {
