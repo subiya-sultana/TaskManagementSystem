@@ -229,7 +229,7 @@
     <!-- Footer section ends here -->
 
     <!-- JS file -->
-    <script src="index.js"></script>
+    <script src="index.js?v=1.0.0"></script>
     
 </body>
 </html>
