@@ -18,10 +18,10 @@
     try {
         // Create a new PDO instance for PostgreSQL connection
         $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $username, $password);
-
+    
         // Set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    
         echo "Connection to PostgreSQL database successful.";
     } catch (PDOException $e) {
         // Handle connection errors
